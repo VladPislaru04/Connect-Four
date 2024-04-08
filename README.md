@@ -1,4 +1,7 @@
-# Nu primesc notă pentru că nu am pus titlu și descriere
+# Connect Four
+
+Pentru Tema_1 am implementat un joc clasic de connect-4 cu 2 player. Urmeaza sa implementez si joc contra computerului,
+cu diferite dificultati, alte variante de joc si interfata grafica.
 
 ### Important!
 Aveți voie cu cod generat de modele de limbaj la care nu ați contribuit semnificativ doar în folder-ul `generated`.

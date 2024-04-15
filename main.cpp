@@ -1,16 +1,14 @@
 #include <iostream>
 #include <vector>
 
-const char EMPTY_CELL = '#';
-const char ID1 = 'X';
-const char ID2 = 'O';
-
 class Player {
 private:
 	std::string playerName;
 	char playerID;
 	bool isActive;
 public:
+    static const char ID1 = 'X';
+    static const char ID2 = 'O';   
     Player() {
         playerName = "";
         isActive = false;
@@ -47,13 +45,14 @@ private:
     int height, length;
     std::vector<std::string> state;
 public:
+    static const char EMPTY_CELL = '#';
     Board() {
         height = 6;
         length = 7;
         state.resize(height + 1);
         for (int i = 0; i < height; i++)
             for (int j = 0; j < length; j++)
-                state[i] += EMPTY_CELL;
+                state[i] += Board::EMPTY_CELL;
     }
     Board(int new_height, int new_length) {
         height = new_height;
@@ -61,7 +60,7 @@ public:
         state.resize(height);
         for (int i = 0; i < height; i++)
             for (int j = 0; j < length; j++)
-                state[i] += EMPTY_CELL;
+                state[i] += Board::EMPTY_CELL;
     }
     friend std::ostream& operator<< (std::ostream& out, const Board& board)
     {
@@ -126,7 +125,7 @@ public:
             std::cout << "Wrong format!\n";
             return -1;
         }
-        while(choice < 1 || choice > length || state[0][choice - 1] == ID1 || state[0][choice - 1] == ID2) {
+        while(choice < 1 || choice > length || state[0][choice - 1] == Player::ID1 || state[0][choice - 1] == Player::ID2) {
 
             steps++;
             if (steps > 100) {
@@ -137,7 +136,7 @@ public:
             if (choice < 1 || choice > length) {
                 std::cout << "The column inserted is not correct!\n";
             }
-            else if (state[0][choice - 1] == ID1 || state[0][choice - 1] == ID2) {
+            else if (state[0][choice - 1] == Player::ID1 || state[0][choice - 1] == Player::ID2) {
                 std::cout << "That column is full\n";
             }
             std::cout << "Please enter a number between 1 and " << length << ": ";
@@ -147,7 +146,7 @@ public:
     }
     void updateBoard(int choice, Player activePlayer) {
         for (int i = height - 1; i >= 0; i--)
-            if (state[i][choice] != ID1 && state[i][choice] != ID2) {
+            if (state[i][choice] != Player::ID1 && state[i][choice] != Player::ID2) {
                 state[i][choice] = activePlayer.getPlayerID();
                 break;
             }
@@ -155,11 +154,11 @@ public:
     void reset() {
         for (int i = 0; i < height; i++)
             for (int j = 0; j < length; j++)
-                state[i][j] = EMPTY_CELL;
+                state[i][j] = Board::EMPTY_CELL;
     }
     int isFull() {
         for (int j = 0; j < length; j++)
-            if (state[0][j] == EMPTY_CELL)
+            if (state[0][j] == Board::EMPTY_CELL)
                 return 0;
         return 1;
     }
@@ -174,8 +173,8 @@ private:
 public:
     Game() {
         board = Board();
-        playerOne = Player(ID1);
-        playerTwo = Player(ID2);
+        playerOne = Player(Player::ID1);
+        playerTwo = Player(Player::ID2);
     }
     Game(Board newBoard, Player newPlayer1, Player newPlayer2) {
         board = newBoard;
@@ -262,7 +261,7 @@ int main()
 	std::cin >> namePlayerTwo;
 
 	Board board;
-	Player playerOne(namePlayerOne, ID1), playerTwo(namePlayerTwo, ID2);
+	Player playerOne(namePlayerOne, Player::ID1), playerTwo(namePlayerTwo, Player::ID2);
 	Game game(board, playerOne, playerTwo);
 
 	std::cout << board << "\n";

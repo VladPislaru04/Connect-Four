@@ -34,7 +34,10 @@ public:
 
     friend std::ostream& operator<< (std::ostream& out, const Player& player)
     {
-        out << player.playerName;
+        out << "Player name: " << player.playerName << "\n";
+        out << "Is Active: ";
+        (player.isActive) ? out << "YES\n" : out << "NO\n";
+        out << "Player's ID: " << player.playerID;
         return out;
     }
 };

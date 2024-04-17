@@ -9,22 +9,16 @@ private:
 public:
     static const char ID1 = 'X';
     static const char ID2 = 'O';
-    Player() {
-        playerName = "";
-        playerID = ID1;
-        isActive = false;
-    }
+    Player() : playerName(""), playerID(ID1), isActive(false) {}
 
-    Player(std::string const name, char const ID) {
-        playerName = name;
-        playerID = ID;
+    Player(std::string const &name, char const ID) : playerName(name), playerID(ID) {
         isActive = ID == ID1 ? true : false;
     }
 
-    Player(char const ID) {
-        playerName = "Player";
-        playerName += ID;
-        playerID = ID;
+    explicit Player(char const ID) : playerName("Player"), playerID(ID) {
+        if (ID == ID1)
+            playerName += "1";
+        else playerName += "2";
         isActive = ID == ID1 ? true : false;
     }
 
@@ -36,7 +30,7 @@ public:
         return playerID;
     }
 
-    friend std::ostream& operator<< (std::ostream& out, Player const player)
+    friend std::ostream& operator<< (std::ostream& out, Player const &player)
     {
         out << "Player name: " << player.playerName << "\n";
         out << "Is Active: ";
@@ -69,7 +63,7 @@ public:
             for (int j = 0; j < length; j++)
                 state[i] += Board::EMPTY_CELL;
     }
-    friend std::ostream& operator<< (std::ostream& out, Board const board)
+    friend std::ostream& operator<< (std::ostream& out, Board const &board)
     {
        for (int i = 0; i < board.height; i++) {
             out << "|";
@@ -178,16 +172,11 @@ private:
     Player playerOne;
     Player playerTwo;
 public:
-    Game() {
-        board = Board();
-        playerOne = Player(Player::ID1);
-        playerTwo = Player(Player::ID2);
-    }
-    Game(Board const newBoard, Player const newPlayer1, Player const newPlayer2) {
-        board = newBoard;
-        playerOne = newPlayer1;
-        playerTwo = newPlayer2;
-    }
+    Game() : board(Board()), playerOne(Player(Player(Player::ID1))), playerTwo(Player(Player::ID2)) {}
+
+    Game(Board const &newBoard, Player const &newPlayer1, Player const newPlayer2)
+    : board(newBoard), playerOne(newPlayer1), playerTwo(newPlayer2) {}
+
     void gameWin(Player activePlayer){
         std::cout << "\n" << activePlayer.getPlayerName() << " Connected Four, You Win!" << "\n";
     }

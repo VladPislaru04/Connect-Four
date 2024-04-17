@@ -14,13 +14,14 @@ public:
         isActive = false;
     }
 
-    Player(std::string name, char ID) {
+    Player(const std::string name, const char ID) {
         playerName = name;
         playerID = ID;
     }
 
-    Player(char ID) {
-        playerName = "Player" + ID;
+    Player(const char ID) {
+        playerName = "Player";
+        playerName += ID;
         playerID = ID;
     }
 
@@ -57,7 +58,7 @@ public:
             for (int j = 0; j < length; j++)
                 state[i] += Board::EMPTY_CELL;
     }
-    Board(int new_height, int new_length) {
+    Board(const int new_height, const int new_length) {
         height = new_height;
         length = new_length;
         state.resize(height);
@@ -147,7 +148,7 @@ public:
         }
         return choice;
     }
-    void updateBoard(int choice, Player activePlayer) {
+    void updateBoard(const int choice, Player activePlayer) {
         for (int i = height - 1; i >= 0; i--)
             if (state[i][choice] != Player::ID1 && state[i][choice] != Player::ID2) {
                 state[i][choice] = activePlayer.getPlayerID();
@@ -179,7 +180,7 @@ public:
         playerOne = Player(Player::ID1);
         playerTwo = Player(Player::ID2);
     }
-    Game(Board newBoard, Player newPlayer1, Player newPlayer2) {
+    Game(const Board newBoard, const Player newPlayer1, const Player newPlayer2) {
         board = newBoard;
         playerOne = newPlayer1;
         playerTwo = newPlayer2;

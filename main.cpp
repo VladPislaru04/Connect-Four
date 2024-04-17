@@ -8,21 +8,24 @@ private:
 	bool isActive;
 public:
     static const char ID1 = 'X';
-    static const char ID2 = 'O';   
+    static const char ID2 = 'O';
     Player() {
         playerName = "";
+        playerID = ID1;
         isActive = false;
     }
 
-    Player(const std::string name, const char ID) {
+    Player(std::string const name, char const ID) {
         playerName = name;
         playerID = ID;
+        isActive = ID == ID1 ? true : false;
     }
 
-    Player(const char ID) {
+    Player(char const ID) {
         playerName = "Player";
         playerName += ID;
         playerID = ID;
+        isActive = ID == ID1 ? true : false;
     }
 
     std::string getPlayerName() {
@@ -33,7 +36,7 @@ public:
         return playerID;
     }
 
-    friend std::ostream& operator<< (std::ostream& out, const Player& player)
+    friend std::ostream& operator<< (std::ostream& out, Player const player)
     {
         out << "Player name: " << player.playerName << "\n";
         out << "Is Active: ";
@@ -58,7 +61,7 @@ public:
             for (int j = 0; j < length; j++)
                 state[i] += Board::EMPTY_CELL;
     }
-    Board(const int new_height, const int new_length) {
+    Board(int const new_height, int const new_length) {
         height = new_height;
         length = new_length;
         state.resize(height);
@@ -66,7 +69,7 @@ public:
             for (int j = 0; j < length; j++)
                 state[i] += Board::EMPTY_CELL;
     }
-    friend std::ostream& operator<< (std::ostream& out, const Board& board)
+    friend std::ostream& operator<< (std::ostream& out, Board const board)
     {
        for (int i = 0; i < board.height; i++) {
             out << "|";
@@ -180,7 +183,7 @@ public:
         playerOne = Player(Player::ID1);
         playerTwo = Player(Player::ID2);
     }
-    Game(const Board newBoard, const Player newPlayer1, const Player newPlayer2) {
+    Game(Board const newBoard, Player const newPlayer1, Player const newPlayer2) {
         board = newBoard;
         playerOne = newPlayer1;
         playerTwo = newPlayer2;
@@ -268,7 +271,6 @@ int main()
 	Player playerOne(namePlayerOne, Player::ID1), playerTwo(namePlayerTwo, Player::ID2);
 	Game game(board, playerOne, playerTwo);
 
-	std::cout << board << "\n";
 	game.startGame();
     return 0;
 }

@@ -174,7 +174,7 @@ private:
 public:
     Game() : board(Board()), playerOne(Player(Player(Player::ID1))), playerTwo(Player(Player::ID2)) {}
 
-    Game(Board const &newBoard, Player const &newPlayer1, Player const newPlayer2)
+    Game(Board const &newBoard, Player const &newPlayer1, Player const &newPlayer2)
     : board(newBoard), playerOne(newPlayer1), playerTwo(newPlayer2) {}
 
     void gameWin(Player activePlayer){

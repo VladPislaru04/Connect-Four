@@ -10,7 +10,7 @@ int SmartAIPlayer::chooseMove(int length, std::vector<std::string> state) {
     for (int col : generateMoves(state)) {
 
         makeMove(state, col, playerID);
-        int moveValue = minMax(state, MAX_DEPTH, false);
+        int moveValue = minMax(state, SmartAIPlayer::MAX_DEPTH, false);
         undoMove(state, col);
 
         if (moveValue > bestValue) {

@@ -14,6 +14,6 @@ private:
     void undoMove(std::vector<std::string>& state, int col);
     bool isFull(const std::vector<std::string>& state);
     int scorePosition(int countPlayer, int countEmpty, int countOpponent);
-    static const int MAX_DEPTH = 4; // Adjust this for difficulty
+    static const int MAX_DEPTH = 20; // Adjust this for difficulty
 };
 

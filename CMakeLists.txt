@@ -112,7 +112,8 @@ endfunction()
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(${PROJECT_NAME} main.cpp
+file(GLOB OTHER_SOURCES "*.cpp" "*.h")
+add_executable(${PROJECT_NAME} &{OTHER_SOURCES}
         generated/src/Helper.cpp)
 
 ###############################################################################

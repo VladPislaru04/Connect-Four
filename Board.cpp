@@ -16,6 +16,13 @@
             for (int j = 0; j < length; j++)
                 state[i] += Board::EMPTY_CELL;
     }
+
+    Board& Board::operator=(const Board& other) {
+        length = other.length;
+        height = other.height;
+        state = other.state;
+        return *this;
+    }
     std::ostream& operator<< (std::ostream& out, Board const &board)
     {
        for (int i = 0; i < board.height; i++) {
@@ -69,10 +76,15 @@
         return win;
     }
 
-    int Board::makeMove(std::shared_ptr<Player> activePlayer) {
+    bool Board::makeMove(std::shared_ptr<Player> activePlayer) {
 
-        int choice = activePlayer -> chooseMove(length);
-        int steps = 0;
+        int choice = activePlayer -> chooseMove(length, state);
+        if (choice != -1) {
+            updateBoard(choice - 1, activePlayer);
+            return true;
+        }
+        return false;
+        /*int steps = 0;
         while(choice < 1 || choice > length || state[0][choice - 1] == Player::ID1 || state[0][choice - 1] == Player::ID2) {
 
             steps++;
@@ -87,9 +99,9 @@
             else if (state[0][choice - 1] == Player::ID1 || state[0][choice - 1] == Player::ID2) {
                 std::cout << "That column is full\n";
             }
-            choice = activePlayer -> chooseMove(length);
+            choice = activePlayer -> chooseMove(length, state);
         }
-        return choice;
+        return choice;*/
     }
     void Board::updateBoard(const int choice, std::shared_ptr<Player> activePlayer) {
         for (int i = height - 1; i >= 0; i--)

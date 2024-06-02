@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <memory>
 
 class Player {
@@ -29,7 +30,9 @@ public:
 
     char getPlayerID();
 
+    bool checkMove(int length, int choice, std::vector<std::string> state);
+
     friend std::ostream& operator<< (std::ostream& out, Player const &player);
 
-    virtual int chooseMove(int length);
+    virtual int chooseMove(int length, std::vector<std::string> state) = 0;
 };

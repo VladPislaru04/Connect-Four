@@ -1,5 +1,5 @@
 #include <vector>
-#include "HumanPlayer.hpp"
+#include "SmartAIPlayer.hpp"
 
 class Board {
 private:
@@ -9,10 +9,13 @@ public:
     static const char EMPTY_CELL = '#';
     Board();
     Board(int const new_height, int const new_length);
+    Board& operator=(const Board& other);
+
+    ~Board() = default;
     friend std::ostream& operator<< (std::ostream& out, Board const &board);
     int checkFour(std::shared_ptr<Player> activePlayer);
 
-    int makeMove(std::shared_ptr<Player> activePlayer);
+    bool makeMove(std::shared_ptr<Player> activePlayer);
     void updateBoard(const int choice, std::shared_ptr<Player> activePlayer);
     void reset();
     int isFull();

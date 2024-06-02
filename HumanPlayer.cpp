@@ -4,14 +4,19 @@
 HumanPlayer::HumanPlayer(std::string const& name, char const ID) : Player(name, ID) {}
 
 
-int HumanPlayer::chooseMove (int length) {
-    int choice = 0, steps = 0;
+int HumanPlayer::chooseMove (int length, std::vector<std::string> state) {
+    int choice = 0;
     std::cout << Player::playerName << "'s Turn ";
     std::cout << "Please enter a number between 1 and " << length << ": ";
     std::cin >> choice;
-    if (choice <= 0) {
-        std::cout << "Wrong format!\n";
-        return -1;
+    int steps = 0;
+    while (!checkMove(length, choice, state)) {
+        steps++;
+        if (steps > 100) {
+            return -1;
+        }
+        std::cout << "Please enter a number between 1 and " << length << ": ";
+        std::cin >> choice;
     }
     return choice;
 }

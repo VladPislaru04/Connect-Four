@@ -31,6 +31,16 @@ std::ostream& operator<< (std::ostream& out, Player const &player)
     return out;
 }
 
-int  Player::chooseMove(int length) {
-    return 1;
+
+bool Player::checkMove(int length, int choice, std::vector<std::string> state) {
+    if (choice < 1 || choice > length || state[0][choice - 1] == Player::ID1 || state[0][choice - 1] == Player::ID2) {
+        if (choice < 1 || choice > length) {
+            std::cout << "The column inserted is not correct!\n";
+        }
+        else if (state[0][choice - 1] == Player::ID1 || state[0][choice - 1] == Player::ID2) {
+            std::cout << "That column is full\n";
+        }
+        return false;
+    }        
+    return true;
 }

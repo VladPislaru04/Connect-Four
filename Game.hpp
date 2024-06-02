@@ -17,5 +17,8 @@ public:
 
     void startGame();
     int restartGame();
+
+    Game& operator=(const Game& other);
+
     ~Game();
 };

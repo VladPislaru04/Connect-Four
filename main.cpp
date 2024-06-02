@@ -14,7 +14,7 @@ int main()
 
 	Board board;
 	HumanPlayer playerOne(namePlayerOne, Player::ID1);
-	RandomAIPlayer playerTwo(namePlayerTwo, Player::ID2);
+	SmartAIPlayer playerTwo(namePlayerTwo, Player::ID2);
 	Game game(board, playerOne.clone(), playerTwo.clone());
 
 	game.startGame();

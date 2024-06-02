@@ -3,9 +3,18 @@
 
 RandomAIPlayer::RandomAIPlayer(std::string const& name, char const ID) : Player(name, ID) {}
 
-int RandomAIPlayer::chooseMove(int length) {
+int RandomAIPlayer::chooseMove(int length, std::vector<std::string> state) {
 	srand(time(0));
-	return 1 + (rand() % length);
+    int choice = 1 + (rand() % length);
+    int steps = 0;
+    while (!checkMove(length, choice, state)) {
+        steps++;
+        if (steps > 100) {
+            return -1;
+        }
+        choice = 1 + (rand() % length);
+    }
+    return choice;
 }
 
 std::shared_ptr<Player> RandomAIPlayer::clone() const {

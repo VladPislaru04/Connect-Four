@@ -15,20 +15,29 @@ void Game::gameDraw() {
     std::cout << "\nThe board is full, it's a draw!" << "\n";
 }
 
+Game& Game::operator=(const Game& other) {
+    board = other.board;
+    playerOne = other.playerOne;
+    playerTwo = other.playerTwo;
+    return *this;
+}
+
 void Game::startGame() {
     std::cout << board << "\n";
     int again = 0;
     while (again != 2) {
+        /**
         int choice = board.makeMove(playerOne);
         if (choice != -1) {
             board.updateBoard(choice - 1, playerOne);
             std::cout << board << "\n";
-        }
-        else {
+        }*/
+        bool madeMove = board.makeMove(playerOne);
+        if (!madeMove) {
             std::cout << "Too many wrong tries!\n";
             break;
         }
-
+        std::cout << board << "\n";
         if (board.checkFour(playerOne))
         {
             gameWin(playerOne);
@@ -38,9 +47,15 @@ void Game::startGame() {
                 break;
             }
         }
-
+        /*
         choice = board.makeMove(playerTwo);
         board.updateBoard(choice - 1, playerTwo);
+        */
+        madeMove = board.makeMove(playerTwo);
+        if (!madeMove) {
+            std::cout << "Too many wrong tries!\n";
+            break;
+        }
 
         std::cout << board << "\n";
         if (board.checkFour(playerTwo))

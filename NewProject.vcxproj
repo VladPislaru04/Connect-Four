@@ -127,6 +127,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RandomAIPlayer.cpp" />
+    <ClCompile Include="SmartAIPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.hpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="HumanPlayer.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="RandomAIPlayer.hpp" />
+    <ClInclude Include="SmartAIPlayer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,7 +3,7 @@
 class RandomAIPlayer : public Player {
 public:
 	explicit RandomAIPlayer(std::string const& name, char const ID);
-	int chooseMove(int length) override;
+	int chooseMove(int length, std::vector<std::string> state) override;
 	std::shared_ptr<Player> clone() const override;
 };
 

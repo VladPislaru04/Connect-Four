@@ -34,5 +34,5 @@ public:
 
     friend std::ostream& operator<< (std::ostream& out, Player const &player);
 
-    virtual int chooseMove(int length, std::vector<std::string> state) = 0;
+    virtual int chooseMove(int length, std::vector<std::string> const& state) = 0;
 };

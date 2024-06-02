@@ -3,7 +3,7 @@
 
 RandomAIPlayer::RandomAIPlayer(std::string const& name, char const ID) : Player(name, ID) {}
 
-int RandomAIPlayer::chooseMove(int length, std::vector<std::string> state) {
+int RandomAIPlayer::chooseMove(int length, std::vector<std::string> const& state) {
 	srand(time(0));
     int choice = 1 + (rand() % length);
     int steps = 0;

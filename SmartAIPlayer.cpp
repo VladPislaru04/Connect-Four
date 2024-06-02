@@ -3,15 +3,18 @@
 
 SmartAIPlayer::SmartAIPlayer(std::string const& name, char const ID) : Player(name, ID) {}
 
-int SmartAIPlayer::chooseMove(int length, std::vector<std::string> state) {
+int SmartAIPlayer::chooseMove(int length, std::vector<std::string>const& state) {
+
+    std::vector<std::string> aux_state = state;
     int bestMove = -1;
     int bestValue = std::numeric_limits<int>::min();
     
     for (int col : generateMoves(state)) {
-
-        makeMove(state, col, playerID);
-        int moveValue = minMax(state, SmartAIPlayer::MAX_DEPTH, false);
-        undoMove(state, col);
+        if (col > length)
+            continue;
+        makeMove(aux_state, col, playerID);
+        int moveValue = minMax(aux_state, SmartAIPlayer::MAX_DEPTH, false);
+        undoMove(aux_state, col);
 
         if (moveValue > bestValue) {
             bestMove = col;
@@ -21,7 +24,7 @@ int SmartAIPlayer::chooseMove(int length, std::vector<std::string> state) {
     return bestMove + 1;
 }
 
-int SmartAIPlayer::minMax(std::vector<std::string>& state, int depth, bool isMaximizing) {
+int SmartAIPlayer::minMax(std::vector<std::string>&state, int depth, bool isMaximizing) {
     if (depth == 0 || isWinningMove(state, playerID) || isWinningMove(state, playerID == 'X' ? 'O' : 'X')) {
         return evaluateBoard(state);
     }
@@ -50,7 +53,7 @@ int SmartAIPlayer::minMax(std::vector<std::string>& state, int depth, bool isMax
 
 std::vector<int> SmartAIPlayer::generateMoves(const std::vector<std::string>& state) {
     std::vector<int> validMoves;
-    for (int col = 0; col < state[0].size(); ++col) {
+    for (int col = 0; col < (int) state[0].size(); ++col) {
         if (state[0][col] != 'X' && state[0][col] != 'O') {
             validMoves.push_back(col);
         }
@@ -60,7 +63,7 @@ std::vector<int> SmartAIPlayer::generateMoves(const std::vector<std::string>& st
 
 void SmartAIPlayer::makeMove(std::vector<std::string>& state, int col, char playerID) {
     
-    for (int row = 0; row < state.size() - 1; ++row) {
+    for (int row = 0; row < (int) (state.size() - 1); ++row) {
         if (state[row][col] != 'X' && state[row][col] != 'O') {
             state[row][col] = playerID;
             break;
@@ -69,7 +72,7 @@ void SmartAIPlayer::makeMove(std::vector<std::string>& state, int col, char play
 }
 
 void SmartAIPlayer::undoMove(std::vector<std::string>& state, int col) {
-    for (int row = state.size() - 2; row >= 0; --row) {
+    for (int row = (int) (state.size() - 2); row >= 0; --row) {
         if (state[row][col] == 'X' || state[row][col] == 'O') {
             state[row][col] = ' ';
             break;
@@ -78,8 +81,8 @@ void SmartAIPlayer::undoMove(std::vector<std::string>& state, int col) {
 }
 
 bool SmartAIPlayer::isFull(const std::vector<std::string>& state) {
-    int maxRow = state.size() - 2;
-    for (int col = 0; col < state[0].size(); ++col) {
+    int maxRow = (int) (state.size() - 2);
+    for (int col = 0; col < (int) state[0].size(); ++col) {
         if (state[maxRow][col] != 'X' && state[maxRow][col] != 'O') {
             return false;
         }
@@ -89,8 +92,8 @@ bool SmartAIPlayer::isFull(const std::vector<std::string>& state) {
 
 
 bool SmartAIPlayer::isWinningMove(const std::vector<std::string>& state, char playerID) {
-    int rows = state.size() - 1;
-    int cols = state[0].size();
+    int rows = (int) (state.size() - 1);
+    int cols = (int) (state[0].size());
    
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col + 3 < cols; ++col) {
@@ -155,8 +158,8 @@ int SmartAIPlayer::scorePosition(int countPlayer, int countEmpty, int countOppon
 
 int SmartAIPlayer::evaluateBoard(const std::vector<std::string>&state) {
     int score = 0;
-    int rows = state.size() - 1;
-    int cols = state[0].size();
+    int rows = (int) (state.size() - 1);
+    int cols = (int) (state[0].size());
     char opponentID = playerID == 'X' ? 'O' : 'X';
 
     for (int row = 0; row < rows; ++row) {

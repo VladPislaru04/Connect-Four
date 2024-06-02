@@ -4,7 +4,7 @@
 HumanPlayer::HumanPlayer(std::string const& name, char const ID) : Player(name, ID) {}
 
 
-int HumanPlayer::chooseMove (int length, std::vector<std::string> state) {
+int HumanPlayer::chooseMove (int length, std::vector<std::string> const& state) {
     int choice = 0;
     std::cout << Player::playerName << "'s Turn ";
     std::cout << "Please enter a number between 1 and " << length << ": ";

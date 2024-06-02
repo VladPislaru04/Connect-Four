@@ -1,4 +1,5 @@
 #include "SmartAIPlayer.hpp"
+#include <limits>
 
 
 SmartAIPlayer::SmartAIPlayer(std::string const& name, char const ID) : Player(name, ID) {}
@@ -61,11 +62,11 @@ std::vector<int> SmartAIPlayer::generateMoves(const std::vector<std::string>& st
     return validMoves;
 }
 
-void SmartAIPlayer::makeMove(std::vector<std::string>& state, int col, char playerID) {
+void SmartAIPlayer::makeMove(std::vector<std::string>& state, int col, char activePlayerID) {
     
     for (int row = 0; row < (int) (state.size() - 1); ++row) {
         if (state[row][col] != 'X' && state[row][col] != 'O') {
-            state[row][col] = playerID;
+            state[row][col] = activePlayerID;
             break;
         }
     }
@@ -80,50 +81,40 @@ void SmartAIPlayer::undoMove(std::vector<std::string>& state, int col) {
     }
 }
 
-bool SmartAIPlayer::isFull(const std::vector<std::string>& state) {
-    int maxRow = (int) (state.size() - 2);
-    for (int col = 0; col < (int) state[0].size(); ++col) {
-        if (state[maxRow][col] != 'X' && state[maxRow][col] != 'O') {
-            return false;
-        }
-    }
-    return true;
-}
 
-
-bool SmartAIPlayer::isWinningMove(const std::vector<std::string>& state, char playerID) {
+bool SmartAIPlayer::isWinningMove(const std::vector<std::string>& state, char activePlayerID) {
     int rows = (int) (state.size() - 1);
     int cols = (int) (state[0].size());
    
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col + 3 < cols; ++col) {
             
-            if (state[row][col] == playerID && state[row][col + 1] == playerID &&
-                state[row][col + 2] == playerID && state[row][col + 3] == playerID) {
+            if (state[row][col] == activePlayerID && state[row][col + 1] == activePlayerID &&
+                state[row][col + 2] == activePlayerID && state[row][col + 3] == activePlayerID) {
                 return true;
             }
         }
     }
     for (int row = 0; row < rows - 3; ++row) {
         for (int col = 0; col < cols; ++col) {
-            if (state[row][col] == playerID && state[row + 1][col] == playerID &&
-                state[row + 2][col] == playerID && state[row + 3][col] == playerID) {
+            if (state[row][col] == activePlayerID && state[row + 1][col] == activePlayerID &&
+                state[row + 2][col] == activePlayerID && state[row + 3][col] == activePlayerID) {
                 return true;
             }
         }
     }
     for (int row = 3; row < rows; ++row) {
         for (int col = 0; col < cols - 3; ++col) {
-            if (state[row][col] == playerID && state[row - 1][col + 1] == playerID &&
-                state[row - 2][col + 2] == playerID && state[row - 3][col + 3] == playerID) {
+            if (state[row][col] == activePlayerID && state[row - 1][col + 1] == activePlayerID &&
+                state[row - 2][col + 2] == activePlayerID && state[row - 3][col + 3] == activePlayerID) {
                 return true;
             }
         }
     }
     for (int row = 0; row < rows - 3; ++row) {
         for (int col = 0; col < cols - 3; ++col) {
-            if (state[row][col] == playerID && state[row + 1][col + 1] == playerID &&
-                state[row + 2][col + 2] == playerID && state[row + 3][col + 3] == playerID) {
+            if (state[row][col] == activePlayerID && state[row + 1][col + 1] == activePlayerID &&
+                state[row + 2][col + 2] == activePlayerID && state[row + 3][col + 3] == activePlayerID) {
                 return true;
             }
         }

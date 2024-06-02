@@ -10,7 +10,7 @@ public:
     Board();
     Board(int const new_height, int const new_length);
     Board& operator=(const Board& other);
-
+    Board(Board const&) = default;
     ~Board() = default;
     friend std::ostream& operator<< (std::ostream& out, Board const &board);
     int checkFour(std::shared_ptr<Player> activePlayer);
